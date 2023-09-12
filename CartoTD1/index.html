@@ -29,6 +29,23 @@
         <li>Date: <span id="date2"></span></li>
     </ul>
 
+    <p>Orientation:</p>
+    <ul>
+        <li>Alpha: <span id="alpha"></span></li>
+        <li>Bêta: <span id="beta"></span></li>
+        <li>Gamma: <span id="gamma"></span></li>
+    </ul>
+
+    <p>Mouvement:</p>
+    <ul>
+        <li>Accélération en rotation X: <span id="rotationX"></span></li>
+        <li>Accélération en rotation Y: <span id="rotationY"></span></li>
+        <li>Accélération en rotation Z: <span id="rotationZ"></span></li>
+        <li>Accélération en translation X: <span id="translationX"></span></li>
+        <li>Accélération en translation Y: <span id="translationY"></span></li>
+        <li>Accélération en translation Z: <span id="translationZ"></span></li>
+    </ul>
+
     <script>
         function afficherPosition(position, positionNumber) {
             const latitudeElement = document.getElementById('latitude' + positionNumber);
@@ -46,6 +63,32 @@
             dateElement.textContent = new Date(position.timestamp).toLocaleString();
         }
 
+        function afficherOrientation(orientation) {
+            const alphaElement = document.getElementById('alpha');
+            const betaElement = document.getElementById('beta');
+            const gammaElement = document.getElementById('gamma');
+
+            alphaElement.textContent = orientation.alpha;
+            betaElement.textContent = orientation.beta;
+            gammaElement.textContent = orientation.gamma;
+        }
+
+        function afficherMouvement(motion) {
+            const rotationXElement = document.getElementById('rotationX');
+            const rotationYElement = document.getElementById('rotationY');
+            const rotationZElement = document.getElementById('rotationZ');
+            const translationXElement = document.getElementById('translationX');
+            const translationYElement = document.getElementById('translationY');
+            const translationZElement = document.getElementById('translationZ');
+
+            rotationXElement.textContent = motion.rotationRate.alpha;
+            rotationYElement.textContent = motion.rotationRate.beta;
+            rotationZElement.textContent = motion.rotationRate.gamma;
+            translationXElement.textContent = motion.acceleration.x;
+            translationYElement.textContent = motion.acceleration.y;
+            translationZElement.textContent = motion.acceleration.z;
+        }
+
         function errorHandler(error) {
             console.error('Erreur de géolocalisation:', error);
         }
@@ -60,6 +103,16 @@
             navigator.geolocation.watchPosition((position) => {
                 afficherPosition(position, 2);
             }, errorHandler);
+
+            // Écoutez les événements d'orientation
+            window.addEventListener('deviceorientation', (event) => {
+                afficherOrientation(event);
+            });
+
+            // Écoutez les événements de mouvement
+            window.addEventListener('devicemotion', (event) => {
+                afficherMouvement(event.accelerationIncludingGravity);
+            });
         } else {
             console.error('La géolocalisation n\'est pas prise en charge par ce navigateur.');
         }
