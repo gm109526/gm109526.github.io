@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>Position getCurrentPosition:</p>
+    <ul>
+        <li>Latitude: <span id="latitude1"></span></li>
+        <li>Longitude: <span id="longitude1"></span></li>
+        <li>Altitude: <span id="altitude1"></span></li>
+        <li>Précision: <span id="precision1"></span></li>
+        <li>Vitesse: <span id="vitesse1"></span></li>
+        <li>Date: <span id="date1"></span></li>
+    </ul>
+
+    <p>Position watchPosition:</p>
+    <ul>
+        <li>Latitude: <span id="latitude2"></span></li>
+        <li>Longitude: <span id="longitude2"></span></li>
+        <li>Altitude: <span id="altitude2"></span></li>
+        <li>Précision: <span id="precision2"></span></li>
+        <li>Vitesse: <span id="vitesse2"></span></li>
+        <li>Date: <span id="date2"></span></li>
+    </ul>
+
+    <script>
+        function afficherPosition(position, positionNumber) {
+            const latitudeElement = document.getElementById('latitude' + positionNumber);
+            const longitudeElement = document.getElementById('longitude' + positionNumber);
+            const altitudeElement = document.getElementById('altitude' + positionNumber);
+            const precisionElement = document.getElementById('precision' + positionNumber);
+            const vitesseElement = document.getElementById('vitesse' + positionNumber);
+            const dateElement = document.getElementById('date' + positionNumber);
+
+            latitudeElement.textContent = position.coords.latitude;
+            longitudeElement.textContent = position.coords.longitude;
+            altitudeElement.textContent = position.coords.altitude;
+            precisionElement.textContent = position.coords.accuracy;
+            vitesseElement.textContent = position.coords.speed;
+            dateElement.textContent = new Date(position.timestamp).toLocaleString();
+        }
+
+        function errorHandler(error) {
+            console.error('Erreur de géolocalisation:', error);
+        }
+
+        if (navigator.geolocation) {
+            // Obtenez la première position
+            navigator.geolocation.getCurrentPosition((position) => {
+                afficherPosition(position, 1);
+            }, errorHandler);
+
+            // Surveillez la deuxième position en temps réel
+            navigator.geolocation.watchPosition((position) => {
+                afficherPosition(position, 2);
+            }, errorHandler);
+        } else {
+            console.error('La géolocalisation n\'est pas prise en charge par ce navigateur.');
+        }
+    </script>
+</body>
+
+</html>
