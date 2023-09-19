@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./exs.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+
+<body>
+    <div id="map"></div>
+</body>
+
+</html>
+
+<script>
+    navigator.geolocation.getCurrentPosition(function (position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        var precision = position.coords.accuracy;
+
+        var map = L.map('map').setView([latitude, longitude], 13);
+
+        L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png', {
+            attribution: 'Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under CC BY SA.'
+        }).addTo(map);
+
+        L.marker([latitude, longitude]).addTo(map)
+            .bindPopup('<b>Ma position</b>')
+            .openPopup();
+
+        var polygonCoords = [
+            [32.19, -64.44],
+            [25.47, -80.13],
+            [18.27, -66.04]
+        ];
+
+        L.polygon(polygonCoords, { color: 'black' }).addTo(map);
+
+        L.circle([latitude, longitude], {
+            color: 'red',
+            fillColor: '#f01',
+            fillOpacity: 0.2,
+            radius: 500
+        }).addTo(map);
+
+        var marseille = [43.300, 5.400];
+
+        var line = L.polyline([marseille, [latitude, longitude]], { color: 'blue' }).addTo(map);
+
+        var distance = map.distance(marseille, [latitude, longitude]);
+        distance = distance / 1000;
+
+        line.bindPopup('Distance Marseille - Ma position : ' + distance.toFixed(2) + ' km').openPopup();
+    });
+
+</script>

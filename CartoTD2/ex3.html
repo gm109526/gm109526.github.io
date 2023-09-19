@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./exs.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+
+<body>
+    <div id="bigMap"></div>
+</body>
+
+</html>
+
+<script>
+    var map = L.map('bigMap').setView([15.924631, -61.262408], 11.5);
+
+    L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png', {
+        attribution: 'Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under CC BY SA.'
+    }).addTo(map);
+
+    function addMarkersFromJSON(data, map) {
+        data.features.forEach(feature => {
+            const coordinates = feature.geometry.coordinates[0][0];
+
+            coordinates.forEach(coordinate => {
+                const latitude = coordinate[1];
+                const longitude = coordinate[0];
+
+                const marker = L.marker([latitude, longitude]).addTo(map);
+                marker.bindPopup(`<b>Point</b>`);
+            });
+        });
+    }
+
+    fetch('https://www.data.gouv.fr/fr/datasets/r/d31ed1df-8baf-4c41-b639-2bc8a2560db5')
+        .then(response => response.json())
+        .then(data => {
+            addMarkersFromJSON(data, map);
+        })
+        .catch(error => console.error('Erreur lors du chargement du JSON:', error));
+</script>

@@ -6,14 +6,56 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="./exs.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
 
 <body>
     <div id="map"></div>
+    <p>Position getCurrentPosition:</p>
+    <ul>
+        <li>Latitude: <span id="latitude"></span></li>
+        <li>Longitude: <span id="longitude"></span></li>
+    </ul>
+
+    <script>
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                document.getElementById('latitude').innerHTML = latitude;
+                document.getElementById('longitude').innerHTML = longitude;
+
+                var map = L.map('map').setView([latitude, longitude], 13);
+
+                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                }).addTo(map);
+
+                var marker = L.marker([latitude, longitude]).addTo(map);
+
+                marker.bindPopup("<b>Ma position</b>").openPopup();
+
+                var niceLat = 43.7000;
+                var niceLng = 7.2700;
+
+                var niceMarker = L.marker([niceLat, niceLng]).addTo(map);
+                niceMarker.bindPopup("<b>Nice Centre-Ville</b>");
+
+                map.setView([latitude, longitude], 13);
+            }, errorHandler);
+        }
+
+        function errorHandler(error) {
+            console.error('Erreur de géolocalisation:', error);
+        }
+
+    </script>
 </body>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 </html>
