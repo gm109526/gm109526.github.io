@@ -25,7 +25,7 @@ camera.position.z = 5;
 
 const loader = new GLTFLoader();
 
-loader.load('mr_krabs_spongebob.glb', function (gltf) {
+loader.load('./mr_krabs_spongebob.glb', function (gltf) {
     const model = gltf.scene.children[0];
     model.scale.set(0.1, 0.1, 0.1);
     scene.add(gltf.scene);
