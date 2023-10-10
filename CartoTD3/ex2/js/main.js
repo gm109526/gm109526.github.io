@@ -27,7 +27,7 @@ const loader = new GLTFLoader();
 
 loader.load('/CartoTD3/ex2/mr_krabs_spongebob.glb', function (gltf) {
     const model = gltf.scene.children[0];
-    model.scale.set(0.1, 0.1, 0.1);
+    model.scale.set(0.01, 0.01, 0.01);
     scene.add(gltf.scene);
 }, undefined, function (error) {
     console.error(error);
