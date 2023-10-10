@@ -11,7 +11,7 @@ document.body.appendChild(renderer.domElement);
 const geometry = new THREE.BoxGeometry(1, 1, 1);
 
 const textureLoader = new THREE.TextureLoader();
-const texture = textureLoader.load('../images/norman.jpg')
+const texture = textureLoader.load('/CartoTD3/2/images/norman.jpg')
 
 const material = new THREE.MeshPhongMaterial({ map: texture });
 const cube = new THREE.Mesh(geometry, material);
@@ -25,7 +25,7 @@ camera.position.z = 5;
 
 const loader = new GLTFLoader();
 
-loader.load('./mr_krabs_spongebob.glb', function (gltf) {
+loader.load('/CartoTD3/2/mr_krabs_spongebob.glb', function (gltf) {
     const model = gltf.scene.children[0];
     model.scale.set(0.1, 0.1, 0.1);
     scene.add(gltf.scene);
