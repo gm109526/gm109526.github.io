@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const scene = new THREE.Scene();
@@ -10,8 +11,11 @@ document.body.appendChild(renderer.domElement);
 
 const geometry = new THREE.BoxGeometry(1, 1, 1);
 
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableZoom = true;
+
 const textureLoader = new THREE.TextureLoader();
-const texture = textureLoader.load('/images/norman.jpg')
+const texture = textureLoader.load('./images/norman.jpg')
 
 const material = new THREE.MeshPhongMaterial({ map: texture });
 const cube = new THREE.Mesh(geometry, material);
@@ -27,7 +31,8 @@ const loader = new GLTFLoader();
 
 loader.load('mr_krabs_spongebob.glb', function (gltf) {
     const model = gltf.scene.children[0];
-    model.scale.set(0.01, 0.01, 0.01);
+    model.scale.set(0.003, 0.003, 0.003);
+    model.position.copy(1, 2, 1);
     scene.add(gltf.scene);
 }, undefined, function (error) {
     console.error(error);
@@ -35,7 +40,7 @@ loader.load('mr_krabs_spongebob.glb', function (gltf) {
 
 function animate() {
     requestAnimationFrame(animate);
-
+    controls.update();
     cube.rotation.x += 0.02;
     cube.rotation.y += 0.02;
 
