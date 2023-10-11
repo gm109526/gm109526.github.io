@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const scene = new THREE.Scene();
@@ -15,7 +15,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableZoom = true;
 
 const geometry = new THREE.SphereGeometry(1, 32, 32);
-const texture = new THREE.TextureLoader().load('/CartoTD4/images/carte.jpg');
+const texture = new THREE.TextureLoader().load('/images/carte.jpg');
 const material = new THREE.MeshBasicMaterial({ map: texture });
 const sphere = new THREE.Mesh(geometry, material);
 
@@ -34,7 +34,7 @@ function animate() {
 function add3DModelToPosition(position, scene) {
     const loader = new GLTFLoader();
 
-    loader.load('/CartoTD4/clemenceau.glb', (gltf) => {
+    loader.load('clemenceau.glb', (gltf) => {
         const model = gltf.scene;
         model.scale.set(0.002, 0.002, 0.002);
         model.position.copy(position);
