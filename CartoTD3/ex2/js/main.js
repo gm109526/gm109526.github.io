@@ -31,8 +31,8 @@ const loader = new GLTFLoader();
 
 loader.load('mr_krabs_spongebob.glb', function (gltf) {
     const model = gltf.scene.children[0];
-    model.scale.set(0.003, 0.003, 0.003);
-    model.position.copy(1, 2, 1);
+    model.scale.set(0.005, 0.005, 0.005);
+    model.position.set(10, -1, 0);
     scene.add(gltf.scene);
 }, undefined, function (error) {
     console.error(error);

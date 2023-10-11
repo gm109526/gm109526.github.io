@@ -94,9 +94,15 @@ function getCountryData() {
     });
 }
 
+function loadFlagTexture(countryCode) {
+    return new Promise((resolve, reject) => {
+        const flagTextureLoader = new THREE.TextureLoader();
+        flagTextureLoader.load(`https://restcountries.com/data/${countryCode.toLowerCase()}.svg`, resolve, undefined, reject);
+    });
+}
+
 function addMarkersFromCountryData(data, scene) {
-    data.forEach(country => {
-        const capital = country.capital;
+    data.forEach(async country => {
         const latlng = country.latlng;
 
         if (latlng && latlng.length === 2) {
@@ -105,12 +111,15 @@ function addMarkersFromCountryData(data, scene) {
 
             const cartesianPosition = latLonToCartesian(latitude, longitude, 1.1);
 
-            const markerMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-            const markerGeometry = new THREE.SphereGeometry(0.01, 32, 32);
-            const marker = new THREE.Mesh(markerGeometry, markerMaterial);
-            marker.position.copy(cartesianPosition);
+            const flagTexture = await loadFlagTexture(country.cca2);
 
-            scene.add(marker);
+            const flagMaterial = new THREE.MeshBasicMaterial({ map: flagTexture });
+
+            const flagGeometry = new THREE.SphereGeometry(0.05, 32, 32); // Adjust the size of the flag
+            const flag = new THREE.Mesh(flagGeometry, flagMaterial);
+            flag.position.copy(cartesianPosition);
+
+            scene.add(flag);
         }
     });
 }
