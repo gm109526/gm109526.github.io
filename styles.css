@@ -9,6 +9,12 @@ body {
     margin: 0 auto;
 }
 
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 header {
     background: #333;
     color: #fff;
@@ -33,6 +39,13 @@ header nav ul li {
 header nav ul li a {
     color: #fff;
     text-decoration: none;
+}
+
+.profile-photo {
+    width: 50px; /* Ajustez cette valeur en fonction de la taille de votre photo */
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 section {
