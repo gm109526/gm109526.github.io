@@ -78,7 +78,7 @@ section h2 {
 }
 
 .social-icon .fa-github:hover {
-    color: #8C3A8D; /* Change this color for GitHub */
+    color: #333; /* Change this color for GitHub */
 }
 
 .social-icon .fa-envelope:hover {
@@ -95,4 +95,32 @@ section h2 {
 
 .cv-container embed {
     border: none;
+}
+
+.project {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.project img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.project h3 {
+    margin: 10px 0;
+}
+
+.project h3 a {
+    color: #333;
+    text-decoration: none;
+}
+
+.project h3 a:hover {
+    text-decoration: underline;
+}
+
+.project p {
+    color: #666;
 }
