@@ -15,6 +15,11 @@ body {
     justify-content: space-between;
 }
 
+.title-photo {
+    display: flex;
+    align-items: center;
+}
+
 header {
     background: #333;
     color: #fff;
@@ -23,6 +28,7 @@ header {
 
 header h1 {
     margin: 0;
+    margin-right: 20px; /* Ajout d'un espace entre le titre et la photo */
 }
 
 header nav ul {
