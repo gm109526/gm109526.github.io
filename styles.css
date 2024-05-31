@@ -81,10 +81,6 @@ section h2 {
     color: #333; /* Change this color for GitHub */
 }
 
-.social-icon .fa-envelope:hover {
-    color: #c23a2b; /* Change this color for Email */
-}
-
 .cv-container {
     margin-top: 20px;
     background-color: #f4f4f4;
