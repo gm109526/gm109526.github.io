@@ -15,11 +15,6 @@ body {
     justify-content: space-between;
 }
 
-.title-photo {
-    display: flex;
-    align-items: center;
-}
-
 header {
     background: #333;
     color: #fff;
@@ -28,7 +23,6 @@ header {
 
 header h1 {
     margin: 0;
-    margin-right: 20px; /* Ajout d'un espace entre le titre et la photo */
 }
 
 header nav ul {
@@ -47,11 +41,17 @@ header nav ul li a {
     text-decoration: none;
 }
 
+header nav ul li a:hover {
+    text-decoration: underline;
+}
+
 .profile-photo {
-    width: 50px; /* Ajustez cette valeur en fonction de la taille de votre photo */
-    height: 50px;
+    width: 150px; /* Ajustez cette valeur en fonction de la taille de votre photo */
+    height: 150px;
     border-radius: 50%;
     object-fit: cover;
+    display: block;
+    margin: 20px auto; /* Centre l'image */
 }
 
 section {
