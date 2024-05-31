@@ -46,12 +46,12 @@ header nav ul li a:hover {
 }
 
 .profile-photo {
-    width: 150px; /* Ajustez cette valeur en fonction de la taille de votre photo */
+    width: 150px;
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
     display: block;
-    margin: 20px auto; /* Centre l'image */
+    margin: 20px auto;
 }
 
 section {
@@ -60,4 +60,39 @@ section {
 
 section h2 {
     margin-bottom: 20px;
+}
+
+.social-icons {
+    margin-bottom: 20px;
+}
+
+.social-icon {
+    font-size: 24px;
+    color: #333;
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+.social-icon:hover {
+    color: #0073b1; /* Change this color for LinkedIn */
+}
+
+.social-icon .fa-github:hover {
+    color: #333; /* Change this color for GitHub */
+}
+
+.social-icon .fa-envelope:hover {
+    color: #c23a2b; /* Change this color for Email */
+}
+
+.cv-container {
+    margin-top: 20px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.cv-container embed {
+    border: none;
 }
